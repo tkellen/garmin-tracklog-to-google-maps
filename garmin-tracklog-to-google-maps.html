@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Google Maps Polyline: Garmin Tracklog</title>
+  <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+</head>
+<body>
+  <div id="gmap" style="height:500px"></div>
+<script>
+// initialize map
+var map = new google.maps.Map(document.getElementById('gmap'),
+{
+  zoom: 7, // set zoom level to 7
+  scrollwheel: false, // disable scrollwheel zooming
+  mapTypeId: google.maps.MapTypeId.ROADMAP, // show roadmap format by default
+  navigationControl: true, // enable nav controls
+  navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL}, // small nav
+  scaleControl: true, // enable map scale
+});
+
+// return gmaps lat/lng object from coords
+function coord(lat,lng) { return new google.maps.LatLng(lat,lng); };
+
+// construct a polyline and return object
+// m = map object
+// coords = array of gmap latlng objects
+// color = color of line, defaults to red
+// opacity = opacity of line, defaults to .5
+// weight = thickness of line, defaults to 6
+function polyline(m,coords,color,opacity,weight)
+{
+  if(!color) color = '#ff0000';
+  if(!opacity) opacity = 0.5;
+  if(!weight) weight = 6;
+  return new google.maps.Polyline(
+  {
+    path: coords,
+    strokeColor: color,
+    strokeOpacity: opacity,
+    strokeWeight: weight
+  }).setMap(m);
+};
+polyline(map,
+[
+  coord(46.6609,9.5765),
+  coord(46.6589,9.5828),
+  coord(46.6126,9.5921),
+  coord(46.5671,9.6215),
+  coord(46.5163,9.6304),
+  coord(46.4758,9.6465),
+  coord(46.4648,9.6993),
+  coord(46.4707,9.7542),
+  coord(46.4562,9.7932)
+]);
+
+// center map on middle point
+map.setCenter(coord(46.5163,9.6304));
+</script>
+</body>
+</html>
